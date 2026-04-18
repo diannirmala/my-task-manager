@@ -108,7 +108,10 @@ export default function App() {
   const commitEdit = async () => {
     if (editingId === null) return;
     const title = editText.trim();
-    if (title) await patchTask(editingId, { title });
+    if (!title) return;
+    const task = tasks.find(t => t.id === editingId);
+    if (!task) return;
+    await patchTask(editingId, { ...task, title });
     setEditingId(null);
   };
 
@@ -264,7 +267,7 @@ export default function App() {
                   <input
                     type="checkbox"
                     checked={task.completed}
-                    onChange={() => patchTask(task.id, { completed: !task.completed })}
+                    onChange={() => patchTask(task.id, { ...task, completed: !task.completed })}
                   />
                   <span className="task-checkmark">
                     {task.completed && (
