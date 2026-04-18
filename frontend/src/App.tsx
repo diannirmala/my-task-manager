@@ -37,6 +37,8 @@ export default function App() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editText, setEditText]   = useState("");
   const [showForm, setShowForm]   = useState(false);
+  const [editPriority, setEditPriority] = useState<Priority>("medium");
+  const [editDueDate, setEditDueDate] = useState("");
   const inputRef  = useRef<HTMLInputElement>(null);
   const editRef   = useRef<HTMLInputElement>(null);
 
@@ -103,15 +105,31 @@ export default function App() {
   const startEdit = (task: Task) => {
     setEditingId(task.id);
     setEditText(task.title);
+    setEditDueDate(task.dueDate || "");
+    setEditPriority(task.priority);
   };
 
   const commitEdit = async () => {
     if (editingId === null) return;
+
     const title = editText.trim();
-    if (!title) return;
+
     const task = tasks.find(t => t.id === editingId);
     if (!task) return;
-    await patchTask(editingId, { ...task, title });
+
+    // Optional: if empty → cancel edit
+    if (!title) {
+      setEditingId(null);
+      return;
+    }
+
+    await patchTask(editingId, {
+      ...task,
+      title,
+      priority: editPriority,
+      dueDate: editDueDate || null
+    });
+
     setEditingId(null);
   };
 
@@ -278,18 +296,38 @@ export default function App() {
                   </span>
                 </label>
 
-                {/* Title / Edit */}
+                {/* Edit */}
                 <div className="task-body">
                   {isEditing ? (
-                    <input
-                      ref={editRef}
-                      className="task-edit-input"
-                      value={editText}
-                      maxLength={120}
-                      onChange={(e) => setEditText(e.target.value)}
-                      onKeyDown={onEditKey}
-                      onBlur={commitEdit}
-                    />
+                    <div className="edit-container">
+                      {/* Task Name */}
+                      <input
+                        ref={editRef}
+                        className="task-edit-input"
+                        value={editText}
+                        maxLength={120}
+                        onChange={(e) => setEditText(e.target.value)}
+                        onKeyDown={onEditKey}
+                      />
+                      {/* Priority */}
+                      <select
+                        className={`edit-select prio-${editPriority}`} 
+                        value={editPriority}
+                        onChange={(e) => setEditPriority(e.target.value as Priority)}
+                      >
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                      </select>
+
+                      {/* Due Date */}
+                      <input 
+                        className="edit-date-input"  
+                        type="date" 
+                        value={editDueDate}
+                        onChange={(e) => setEditDueDate(e.target.value)}
+                       />
+                    </div>
                   ) : (
                     <span
                       className="task-title"

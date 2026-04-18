@@ -54,8 +54,12 @@
   flex-shrink: 0;
 }
 
-.new-task-btn:hover { opacity: 0.85; }
-.new-task-btn.open  { background: var(--text-muted); }
+.new-task-btn:hover {
+  opacity: 0.85;
+}
+.new-task-btn.open {
+  background: var(--text-muted);
+}
 
 /* ── Add Form ── */
 .add-form {
@@ -87,8 +91,12 @@
   transition: border-color 0.15s;
 }
 
-.task-input:focus { border-color: var(--accent); }
-.task-input::placeholder { color: var(--text-muted); }
+.task-input:focus {
+  border-color: var(--accent);
+}
+.task-input::placeholder {
+  color: var(--text-muted);
+}
 
 .add-meta-row {
   display: flex;
@@ -114,10 +122,25 @@
   transition: all 0.12s;
   color: var(--text-muted);
 }
-.prio-chip.prio-high.selected    { background: #fde8e8; border-color: #e07070; color: #c0392b; }
-.prio-chip.prio-medium.selected  { background: #fef3cd; border-color: #e0b050; color: #a07020; }
-.prio-chip.prio-low.selected     { background: #e8f5e9; border-color: #81c784; color: #2e7d32; }
-.prio-chip:not(.selected):hover  { border-color: #aaa; color: var(--text); }
+.prio-chip.prio-high.selected {
+  background: #fde8e8;
+  border-color: #e07070;
+  color: #c0392b;
+}
+.prio-chip.prio-medium.selected {
+  background: #fef3cd;
+  border-color: #e0b050;
+  color: #a07020;
+}
+.prio-chip.prio-low.selected {
+  background: #e8f5e9;
+  border-color: #81c784;
+  color: #2e7d32;
+}
+.prio-chip:not(.selected):hover {
+  border-color: #aaa;
+  color: var(--text);
+}
 
 /* ── Date Input ── */
 .date-input {
@@ -132,7 +155,9 @@
   cursor: pointer;
   transition: border-color 0.15s;
 }
-.date-input:focus { border-color: var(--accent); }
+.date-input:focus {
+  border-color: var(--accent);
+}
 
 /* ── Add Button ── */
 .add-btn {
@@ -146,12 +171,21 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: opacity 0.15s, transform 0.1s;
+  transition:
+    opacity 0.15s,
+    transform 0.1s;
   white-space: nowrap;
 }
-.add-btn:hover:not(:disabled) { opacity: 0.88; }
-.add-btn:active:not(:disabled) { transform: scale(0.97); }
-.add-btn:disabled { opacity: 0.35; cursor: default; }
+.add-btn:hover:not(:disabled) {
+  opacity: 0.88;
+}
+.add-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.add-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
 
 /* ── Error Banner ── */
 .error-banner {
@@ -192,7 +226,9 @@
   align-items: center;
 }
 
-.filter-row { flex: 1; }
+.filter-row {
+  flex: 1;
+}
 
 .sort-label {
   font-size: 12px;
@@ -246,18 +282,30 @@
   border-radius: var(--radius);
   padding: 12px 13px;
   box-shadow: var(--shadow);
-  transition: opacity 0.2s, border-color 0.15s;
+  transition:
+    opacity 0.2s,
+    border-color 0.15s;
   animation: slide-in 0.18s ease;
   border-left-width: 3.5px;
 }
 
-.task-item:hover { border-color: #d0ccc7; }
-.task-item.done  { opacity: 0.5; }
+.task-item:hover {
+  border-color: #d0ccc7;
+}
+.task-item.done {
+  opacity: 0.5;
+}
 
 /* Left accent by priority */
-.prio-border-high   { border-left-color: #e07070; }
-.prio-border-medium { border-left-color: #e0b050; }
-.prio-border-low    { border-left-color: #81c784; }
+.prio-border-high {
+  border-left-color: #e07070;
+}
+.prio-border-medium {
+  border-left-color: #e0b050;
+}
+.prio-border-low {
+  border-left-color: #81c784;
+}
 
 /* ── Checkbox ── */
 .task-check-label {
@@ -267,7 +315,9 @@
   margin-top: 1px;
 }
 
-.task-check-label input[type="checkbox"] { display: none; }
+.task-check-label input[type="checkbox"] {
+  display: none;
+}
 
 .task-checkmark {
   width: 19px;
@@ -279,7 +329,9 @@
   justify-content: center;
   color: #fff;
   background: transparent;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
 .task-item:not(.done) .task-check-label:hover .task-checkmark {
@@ -328,6 +380,81 @@
   width: 100%;
 }
 
+/* ── Edit Container ── */
+.edit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  outline: none;
+}
+
+.edit-fields-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.edit-select {
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  color: var(--text);
+  background: var(--bg);
+  outline: none;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a8680' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 24px;
+}
+
+.edit-select:focus {
+  border-color: var(--accent);
+}
+
+.edit-select.prio-high {
+  border-color: #e07070;
+  color: #c0392b;
+  background-color: #fde8e8;
+}
+.edit-select.prio-medium {
+  border-color: #e0b050;
+  color: #a07020;
+  background-color: #fef3cd;
+}
+.edit-select.prio-low {
+  border-color: #81c784;
+  color: #2e7d32;
+  background-color: #e8f5e9;
+}
+
+.edit-date-input {
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  color: var(--text);
+  background: var(--bg);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.edit-date-input:focus {
+  border-color: var(--accent);
+}
+
 /* ── Task Meta ── */
 .task-meta {
   display: flex;
@@ -345,9 +472,18 @@
   letter-spacing: 0.02em;
 }
 
-.prio-badge.prio-high   { background: #fde8e8; color: #c0392b; }
-.prio-badge.prio-medium { background: #fef3cd; color: #a07020; }
-.prio-badge.prio-low    { background: #e8f5e9; color: #2e7d32; }
+.prio-badge.prio-high {
+  background: #fde8e8;
+  color: #c0392b;
+}
+.prio-badge.prio-medium {
+  background: #fef3cd;
+  color: #a07020;
+}
+.prio-badge.prio-low {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
 
 .due-badge {
   font-family: "DM Mono", monospace;
@@ -355,9 +491,17 @@
   color: var(--text-muted);
 }
 
-.due-badge.overdue { color: #c1121f; font-weight: 500; }
-.due-badge.today   { color: #a07020; font-weight: 500; }
-.due-badge.soon    { color: #5a7a5a; }
+.due-badge.overdue {
+  color: #c1121f;
+  font-weight: 500;
+}
+.due-badge.today {
+  color: #a07020;
+  font-weight: 500;
+}
+.due-badge.soon {
+  color: #5a7a5a;
+}
 
 /* ── Task Actions ── */
 .task-actions {
@@ -369,7 +513,9 @@
   transition: opacity 0.15s;
 }
 
-.task-item:hover .task-actions { opacity: 1; }
+.task-item:hover .task-actions {
+  opacity: 1;
+}
 
 .icon-btn {
   background: none;
@@ -381,11 +527,19 @@
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
-  transition: color 0.13s, background 0.13s;
+  transition:
+    color 0.13s,
+    background 0.13s;
 }
 
-.edit-btn:hover   { color: var(--accent); background: var(--accent-light); }
-.delete-btn:hover { color: #c1121f;       background: #fff0f1; }
+.edit-btn:hover {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+.delete-btn:hover {
+  color: #c1121f;
+  background: #fff0f1;
+}
 
 /* ── Footer ── */
 .footer-row {
@@ -405,7 +559,9 @@
   transition: color 0.13s;
 }
 
-.clear-btn:hover { color: #c1121f; }
+.clear-btn:hover {
+  color: #c1121f;
+}
 
 /* ── States ── */
 .loading,
@@ -423,6 +579,12 @@
 
 /* ── Animation ── */
 @keyframes slide-in {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
