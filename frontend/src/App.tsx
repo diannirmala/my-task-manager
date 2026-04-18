@@ -299,8 +299,14 @@ export default function App() {
                 {/* Edit */}
                 <div className="task-body">
                   {isEditing ? (
-                    <div className="edit-container">
-                      {/* Task Name */}
+                    <div
+                      className="edit-container"
+                      tabIndex={-1}
+                      onBlur={(e) => {
+                        if (e.currentTarget.contains(e.relatedTarget as Node)) return;
+                        commitEdit();
+                      }}
+                    >
                       <input
                         ref={editRef}
                         className="task-edit-input"
@@ -309,49 +315,48 @@ export default function App() {
                         onChange={(e) => setEditText(e.target.value)}
                         onKeyDown={onEditKey}
                       />
-                      {/* Priority */}
-                      <select
-                        className={`edit-select prio-${editPriority}`} 
-                        value={editPriority}
-                        onChange={(e) => setEditPriority(e.target.value as Priority)}
-                      >
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                      </select>
-
-                      {/* Due Date */}
-                      <input 
-                        className="edit-date-input"  
-                        type="date" 
-                        value={editDueDate}
-                        onChange={(e) => setEditDueDate(e.target.value)}
-                       />
+                      <div className="edit-fields-row">
+                        <select
+                          className={`edit-select prio-${editPriority}`}
+                          value={editPriority}
+                          onChange={(e) => setEditPriority(e.target.value as Priority)}
+                        >
+                          <option value="low">Low</option>
+                          <option value="medium">Medium</option>
+                          <option value="high">High</option>
+                        </select>
+                        <input
+                          className="edit-date-input"
+                          type="date"
+                          value={editDueDate}
+                          onChange={(e) => setEditDueDate(e.target.value)}
+                        />
+                      </div>
                     </div>
                   ) : (
-                    <span
-                      className="task-title"
-                      onDoubleClick={() => !task.completed && startEdit(task)}
-                      title={task.completed ? "" : "Double-click to edit"}
-                    >
-                      {task.title}
-                    </span>
-                  )}
-
-                  {/* Meta: priority + due date */}
-                  <div className="task-meta">
-                    <span className={`prio-badge prio-${task.priority}`}>
-                      {PRIORITY_LABEL[task.priority]}
-                    </span>
-                    {task.dueDate && (
-                      <span className={`due-badge ${dateStatus ?? ""}`}>
-                        {dateStatus === "overdue" ? "⚠ " : ""}
-                        {formatDate(task.dueDate)}
-                        {dateStatus === "today" ? " · Today" :
-                         dateStatus === "overdue" ? " · Overdue" : ""}
+                    <>
+                      <span
+                        className="task-title"
+                        onDoubleClick={() => !task.completed && startEdit(task)}
+                        title={task.completed ? "" : "Double-click to edit"}
+                      >
+                        {task.title}
                       </span>
-                    )}
-                  </div>
+                      <div className="task-meta">
+                        <span className={`prio-badge prio-${task.priority}`}>
+                          {PRIORITY_LABEL[task.priority]}
+                        </span>
+                        {task.dueDate && (
+                          <span className={`due-badge ${dateStatus ?? ""}`}>
+                            {dateStatus === "overdue" ? "⚠ " : ""}
+                            {formatDate(task.dueDate)}
+                            {dateStatus === "today" ? " · Today" :
+                             dateStatus === "overdue" ? " · Overdue" : ""}
+                          </span>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 {/* Actions */}
