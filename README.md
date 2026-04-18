@@ -1,6 +1,6 @@
 # Task Manager
 
-A fullstack task manager built with React + TypeScript (frontend) and Express + TypeScript (backend). All data lives in-memory — no database needed.
+A fullstack task manager built with React + TypeScript (frontend) and Express + TypeScript (backend).
 
 ---
 
